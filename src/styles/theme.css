@@ -67,20 +67,7 @@
   --sl-color-text-invert: #0f172a;
 }
 
-/* --- Blueprint-сетка на фоне с маской растворения --- */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 36px 36px;
-  mask-image: radial-gradient(ellipse 130% 70% at 50% 0%, #000 35%, transparent 78%);
-  -webkit-mask-image: radial-gradient(ellipse 130% 70% at 50% 0%, #000 35%, transparent 78%);
-}
+/* --- Единственный слой сетки: контентная колонка (см. ниже) --- */
 
 /* --- Контентная колонка: фон-панель Modern Tech (канон основного сайта) ---
    Контент лежит на подложке surface (#1E293B → #162032), не на прозрачном:
