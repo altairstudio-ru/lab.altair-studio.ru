@@ -22,7 +22,12 @@
 - Текстовые OG-теги (og:title/description/url) генерирует сам Starlight; `inject-og.mjs` теперь добавляет только og:image/twitter:image
 
 ## Что осталось у заказчика
-- Выпустить SSL-сертификат для lab.altair-studio.ru в панели Beget (сейчас HTTPS не отвечает, сайт доступен по HTTP)
+- Ничего критичного: сайт работает по HTTPS, CI-деплой настроен
+
+## HTTPS выдан и работает (2026-09-21)
+- Beget выпустил wildcard-сертификат Let's Encrypt `*.altair-studio.ru` (CN altair-studio.ru), выдан 2026-09-21, действует до 2026-12-20 (автообновление — за панелью)
+- Проверено: https://lab.altair-studio.ru/ → 200, og-banner.png / rss.xml / sitemap-index.xml → 200; canonical и og:url уже https (site в astro.config.mjs изначально https)
+- Захардкоженных «http://lab.altair-studio.ru» в коде нет
 
 ## GitHub-репозиторий и CI (2026-09-21, сделано)
 - Репозиторий: `https://github.com/altairstudio-ru/lab.altair-studio.ru` (публичный)
@@ -37,7 +42,7 @@
 - `public/og-banner.png` — 1200×630, диз. стиль Modern Tech (Slate): blueprint-сетка, свечения Digital Blue/Cyan, монограмма «A», заголовок «Лаборатория AltaiR», линия «инженерный журнал», статы PageSpeed 100/100 · CWV ✓ · TTFB ≈0.4s
 - Источник для перегенерации: `tools/og/og-preview.html` (рендер → скриншот; контент строго в 630px, html/body overflow hidden)
 - `scripts/inject-og.mjs` переписан: Starlight уже даёт текстовые OG-теги, скрипт добавляет только og:image/og:image:width|height|type и twitter:image (9 страниц)
-- Задеплоено; проверено: http://lab.altair-studio.ru/og-banner.png (200, 1200×630), og:image и twitter:image на всех страницах
+- Задеплоено; проверено: https://lab.altair-studio.ru/og-banner.png (200, 1200×630), og:image и twitter:image на всех страницах
 
 ## Решения
 - Тема: Modern Tech (Slate) — переопределение токенов Starlight в `src/styles/theme.css`
