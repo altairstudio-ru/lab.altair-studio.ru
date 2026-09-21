@@ -4,8 +4,8 @@
 
    Палитра:
    - Slate      #0F172A / #1E293B / #334155 / #475569 / #64748B
-   - Digital Blue #3B82F6 (акцент), Cyan #38BDF8 (доп. акцент)
-   - Текст      #F8FAFC (светлый) / #94A3B8 (приглушённый)
+   - Digital Blue #3B82F6 (акцент), #60A5FA (вторичный)
+   - Текст      #FFFFFF (светлый) / #CBD5E1 / #94A3B8 (приглушённый)
    - Радиусы    6 / 10 / 14px
    - Шрифты: Inter + JetBrains Mono (self-hosted, @fontsource-variable)
    ========================================================================== */
@@ -32,7 +32,7 @@
 
   /* Оттенки серого — шкала Slate */
   --sl-color-white: #ffffff;
-  --sl-color-gray-1: #f8fafc;
+  --sl-color-gray-1: #ffffff;
   --sl-color-gray-2: #cbd5e1;
   --sl-color-gray-3: #94a3b8;
   --sl-color-gray-4: #64748b;
@@ -41,11 +41,11 @@
   --sl-color-gray-7: #1e293b;
   --sl-color-black: #0f172a;
 
-  /* Акценты: Digital Blue + Cyan */
+  /* Акценты: Digital Blue (канон Modern Tech) */
   --sl-color-accent-low: #1e2c4f;
   --sl-color-accent: #3b82f6;
   --sl-color-accent-high: #60a5fa;
-  --sl-color-accent-high2: #93c5fd;
+  --sl-color-accent-high2: #60a5fa;
   --sl-color-text-accent: #60a5fa;
 
   /* Фоны */
@@ -62,7 +62,7 @@
   --sl-color-bg-hairline: #1e293b;
 
   /* Текст */
-  --sl-color-text: #f8fafc;
+  --sl-color-text: #ffffff;
   --sl-color-text-muted: #94a3b8;
   --sl-color-text-invert: #0f172a;
 }
@@ -75,8 +75,8 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(148, 163, 184, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.055) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 36px 36px;
   mask-image: radial-gradient(ellipse 130% 70% at 50% 0%, #000 35%, transparent 78%);
   -webkit-mask-image: radial-gradient(ellipse 130% 70% at 50% 0%, #000 35%, transparent 78%);
@@ -92,9 +92,9 @@ a:hover {
   transition: color 0.15s ease;
 }
 
-/* Акцентные ссылки в сайдбаре получают cyan-подсветку при ховере */
+/* Акцентные ссылки в сайдбаре получают Digital Blue-подсветку при ховере */
 .sidebar-content a:hover {
-  color: #38bdf8;
+  color: #60a5fa;
 }
 
 /* Карточки на главной — фирменные радиусы */
