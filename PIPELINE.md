@@ -28,6 +28,7 @@
 - Решение: `main[data-pagefind-body]` — фоновая подложка `radial-gradient(46rem 26rem at 88% 0, rgba(59,130,246,.10), transparent 62%)` (Digital Blue glow) + `linear-gradient(#1E293B 0% → #162032 40% → transparent 82%)`; `::before` — blueprint-сетка 36px rgba(255,255,255,.05) с маской `radial-gradient(140% 85% at 50% 0, #000 30%, transparent 88%)` (канон .subtle-blueprint-grid); контент поверх (z-index 1)
 - Отвергнуто: рамочное кольцо 1px #334155 (коммит `9814f00`) — в каноне рамок вокруг крупных блоков нет → убрано в `34e8d31`
 - Коммит `9814f00` → `34e8d31`, CI-деплои успешны; прод проверен на /, /engineering/, /system/ (подложка + сетка + glow + z-index в живой DOM)
+- **Исправление муара (2026-09-21, `ed6cb2b`)** — заказчик: «куча сеток в 3 ряда»: было 3 слоя — `body::before` (fixed, 36px), `main::before` (absolute, 36px), `.lab-hero::before` (28px); при прокрутке fixed/absolute расходились. Убраны `body::before` и `.lab-hero::before`, hero оставлен только glow (`::after`). Осталась одна сетка 36px (`main::before`) — как канон `subtle-blueprint-grid`. Проверено в живой DOM: 1 слой, `background-size 36px 36px`.
 
 ## Исправления при доводке (2026-09-21)
 - Starlight 0.42: `social: {}` убран; autogenerate-группы сайдбара переведены на новый синтаксис `{ label, items: [{ autogenerate }] }`
