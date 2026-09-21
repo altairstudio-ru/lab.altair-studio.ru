@@ -82,6 +82,39 @@ body::before {
   -webkit-mask-image: radial-gradient(ellipse 130% 70% at 50% 0%, #000 35%, transparent 78%);
 }
 
+/* --- Контентная колонка: фон-панель Modern Tech (канон основного сайта) ---
+   Контент лежит на подложке surface (#1E293B → #162032), не на прозрачном:
+   кольцо-рамка #334155, радиус 6px (rounded-md канона); внутри — едва
+   заметная blueprint-сетка и Digital Blue glow, как в hero Modern Tech. */
+main[data-pagefind-body] {
+  position: relative;
+  background:
+    radial-gradient(46rem 26rem at 88% 0%, rgba(59, 130, 246, 0.10), transparent 62%),
+    linear-gradient(180deg, #1e293b 0%, #162032 40%, rgba(22, 32, 50, 0) 82%),
+    #0f172a;
+}
+
+main[data-pagefind-body]::before {
+  content: '';
+  position: absolute;
+  inset: 0.9rem 0.9rem 0 0.9rem;
+  z-index: 0;
+  pointer-events: none;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(ellipse 140% 85% at 50% 0%, #000 30%, transparent 88%);
+  -webkit-mask-image: radial-gradient(ellipse 140% 85% at 50% 0%, #000 30%, transparent 88%);
+}
+
+main[data-pagefind-body] > * {
+  position: relative;
+  z-index: 1;
+}
+
 /* --- Тонкие детали бренда --- */
 .site-title span,
 .header-brand span {
