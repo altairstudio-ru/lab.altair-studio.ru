@@ -1,0 +1,118 @@
+---
+// AltaiR Lab — кастомная шапка (override Starlight Header).
+// Монограмма «A», название поддомена, ссылка возврата на основной сайт, поиск Pagefind.
+import config from 'virtual:starlight/user-config';
+import Search from 'virtual:starlight/components/Search';
+
+const shouldRenderSearch =
+  config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
+---
+
+<div class="header">
+	<div class="title-wrapper sl-flex">
+		<a href="/" class="site-title sl-flex header-brand" aria-label="lab.altair-studio.ru — на главную">
+			<img src="/favicon.svg" alt="" width="28" height="28" class="header-brand__mark" />
+			<span class="header-brand__name" translate="no">lab<span class="header-brand__dot">.</span>altair-studio.ru</span>
+		</a>
+		<a
+			class="header-back"
+			href="https://altair-studio.ru"
+			rel="noopener"
+			title="Перейти на основной сайт студии"
+		>
+			← altair-studio.ru
+		</a>
+	</div>
+	<div class="sl-flex print:hidden header-tools">
+		{shouldRenderSearch && <Search />}
+	</div>
+</div>
+
+<style>
+	@layer starlight.core {
+		.header {
+			display: flex;
+			gap: var(--sl-nav-gap);
+			justify-content: space-between;
+			align-items: center;
+			height: 100%;
+		}
+
+		.title-wrapper {
+			overflow: clip;
+			padding: 0.25rem;
+			margin: -0.25rem;
+			min-width: 0;
+			gap: 0.875rem;
+		}
+
+		.header-brand {
+			align-items: center;
+			gap: 0.6rem;
+			font-family: var(--sl-font);
+			font-size: var(--sl-text-h4);
+			font-weight: 650;
+			color: var(--sl-color-text);
+			text-decoration: none;
+			white-space: nowrap;
+			min-width: 0;
+		}
+
+		.header-brand__mark {
+			width: 28px;
+			height: 28px;
+			flex: none;
+			border-radius: 8px;
+		}
+
+		.header-brand__name {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			letter-spacing: -0.01em;
+		}
+
+		.header-brand__dot {
+			color: #38bdf8;
+		}
+
+		.header-back {
+			flex: none;
+			display: inline-flex;
+			align-items: center;
+			font-size: 0.8rem;
+			font-weight: 500;
+			color: var(--sl-color-text-muted);
+			text-decoration: none;
+			border: 1px solid var(--sl-color-hairline-light);
+			border-radius: 999px;
+			padding: 0.28rem 0.7rem;
+			white-space: nowrap;
+			transition: color 0.15s ease, border-color 0.15s ease;
+		}
+
+		.header-back:hover {
+			color: #38bdf8;
+			border-color: #3b82f6;
+		}
+
+		.header-tools {
+			align-items: center;
+		}
+
+		.header-tools::before {
+			content: '';
+			height: 2rem;
+			border-inline-start: 1px solid var(--sl-color-gray-6);
+			margin-inline-end: 1rem;
+		}
+
+		@media (max-width: 40rem) {
+			.header-back {
+				display: none;
+			}
+			.header-tools::before {
+				display: none;
+			}
+		}
+	}
+</style>

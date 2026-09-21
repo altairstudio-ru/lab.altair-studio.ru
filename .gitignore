@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+npm-debug.log*
+.DS_Store
+
+# Креды и локальные секреты
+SFTP.md
+.env
+.env.*

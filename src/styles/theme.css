@@ -1,0 +1,127 @@
+/* ==========================================================================
+   AltaiR Design System — Modern Tech (Slate)
+   Тема lab.altair-studio.ru поверх Starlight via CSS Custom Properties.
+
+   Палитра:
+   - Slate      #0F172A / #1E293B / #334155 / #475569 / #64748B
+   - Digital Blue #3B82F6 (акцент), Cyan #38BDF8 (доп. акцент)
+   - Текст      #F8FAFC (светлый) / #94A3B8 (приглушённый)
+   - Радиусы    6 / 10 / 14px
+   - Шрифты: Inter + JetBrains Mono (self-hosted, @fontsource-variable)
+   ========================================================================== */
+
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+
+/* --- Базовые настройки, действуют до гидратации темизации --- */
+:root {
+  color-scheme: dark;
+  --sl-font: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --sl-font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
+}
+
+/* --- Токены Modern Tech: применяем и к тёмной, и к светлой теме (тема «залочена» в Slate) --- */
+:root,
+:root[data-theme='light'],
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* Шрифты */
+  --sl-font: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --sl-font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
+
+  /* Оттенки серого — шкала Slate */
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #f8fafc;
+  --sl-color-gray-2: #cbd5e1;
+  --sl-color-gray-3: #94a3b8;
+  --sl-color-gray-4: #64748b;
+  --sl-color-gray-5: #475569;
+  --sl-color-gray-6: #334155;
+  --sl-color-gray-7: #1e293b;
+  --sl-color-black: #0f172a;
+
+  /* Акценты: Digital Blue + Cyan */
+  --sl-color-accent-low: #1e2c4f;
+  --sl-color-accent: #3b82f6;
+  --sl-color-accent-high: #60a5fa;
+  --sl-color-accent-high2: #93c5fd;
+  --sl-color-text-accent: #60a5fa;
+
+  /* Фоны */
+  --sl-color-bg: #0f172a;
+  --sl-color-bg-nav: #0f172a;
+  --sl-color-bg-sidebar: #0f172a;
+  --sl-color-bg-toc: #0f172a;
+  --sl-color-bg-inline-code: #1e293b;
+  --sl-color-bg-accent: #3b82f6;
+
+  /* Границы */
+  --sl-color-hairline: rgba(148, 163, 184, 0.16);
+  --sl-color-hairline-light: rgba(148, 163, 184, 0.09);
+  --sl-color-bg-hairline: #1e293b;
+
+  /* Текст */
+  --sl-color-text: #f8fafc;
+  --sl-color-text-muted: #94a3b8;
+  --sl-color-text-invert: #0f172a;
+}
+
+/* --- Blueprint-сетка на фоне с маской растворения --- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.055) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(ellipse 130% 70% at 50% 0%, #000 35%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 130% 70% at 50% 0%, #000 35%, transparent 78%);
+}
+
+/* --- Тонкие детали бренда --- */
+.site-title span,
+.header-brand span {
+  letter-spacing: -0.01em;
+}
+
+a:hover {
+  transition: color 0.15s ease;
+}
+
+/* Акцентные ссылки в сайдбаре получают cyan-подсветку при ховере */
+.sidebar-content a:hover {
+  color: #38bdf8;
+}
+
+/* Карточки на главной — фирменные радиусы */
+.direction-card,
+.article-card {
+  border-radius: 14px;
+  border: 1px solid var(--sl-color-bg-hairline);
+  background: rgba(30, 41, 59, 0.42);
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+.direction-card:hover,
+.article-card:hover {
+  border-color: #3b82f6;
+  background: rgba(30, 41, 59, 0.7);
+  transform: translateY(-2px);
+}
+
+/* --- Токены оформления страниц «О лаборатории» и «Контакты» --- */
+.contact-rows > div {
+  border-radius: 10px;
+}
+
+/* --- Expressive Code: согласуем с палитрой --- */
+:root,
+:root[data-theme='light'],
+:root[data-theme='dark'] {
+  --ec-border-color: #1e293b;
+  --ec-toolbar-bg: #1e293b;
+  --ec-ui-border-sep: #334155;
+}

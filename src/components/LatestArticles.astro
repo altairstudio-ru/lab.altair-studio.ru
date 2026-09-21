@@ -1,0 +1,117 @@
+---
+import { getCollection } from 'astro:content';
+
+const skipSlugs = new Set(['index', 'about', 'contacts', '404']);
+const all = await getCollection('docs');
+
+const posts = all
+  .filter((p) => !skipSlugs.has(p.id.split('/').pop()!))
+  .sort((a, b) => {
+    const da = (a.data as { pubDate?: Date }).pubDate?.getTime() ?? 0;
+    const db = (b.data as { pubDate?: Date }).pubDate?.getTime() ?? 0;
+    return db - da;
+  })
+  .slice(0, 6);
+
+const groupLabel = (id: string) => id.split('/')[0];
+const groupNames: Record<string, string> = {
+  system: 'Система',
+  engineering: 'Инженерия',
+  cases: 'Кейсы',
+  modules: 'Модули',
+  playbook: 'Playbook',
+};
+---
+
+<section class="home-section" aria-labelledby="latest-heading">
+  <div class="latest-head">
+    <h2 id="latest-heading" class="home-section-title">Последние статьи</h2>
+    <a class="latest-all" href="/playbook/">Все разделы →</a>
+  </div>
+  {
+    posts.length > 0 ? (
+      <div class="articles-grid">
+        {posts.map((p) => (
+          <a class="article-card" href={`/${p.id.replace(/\/index$/, '')}/`}>
+            <span class="article-group">{groupNames[groupLabel(p.id)] ?? groupLabel(p.id)}</span>
+            <h3>{p.data.title}</h3>
+            <p>{(p.data as { description?: string }).description}</p>
+            <time>{(p.data as { pubDate?: Date }).pubDate ? new Date((p.data as { pubDate: Date }).pubDate).toLocaleDateString('ru-RU') : ''}</time>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <p>Статьи появятся в ближайшее время.</p>
+    )
+  }
+</section>
+
+<style>
+  .home-section {
+    margin: 3rem 0 1rem;
+  }
+  .latest-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .home-section-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+  .latest-all {
+    font-size: 0.9rem;
+    color: #60a5fa;
+    text-decoration: none;
+  }
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.25rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .article-group {
+    font-family: var(--sl-font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #38bdf8;
+  }
+  .article-card h3 {
+    margin: 0;
+    font-size: 1.02rem;
+    line-height: 1.4;
+  }
+  .article-card p {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--sl-color-text-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .article-card time {
+    margin-top: auto;
+    font-family: var(--sl-font-mono);
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+  @media (max-width: 50rem) {
+    .articles-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
