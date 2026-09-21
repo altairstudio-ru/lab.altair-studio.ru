@@ -24,6 +24,15 @@
 ## Что осталось у заказчика
 - Выпустить SSL-сертификат для lab.altair-studio.ru в панели Beget (сейчас HTTPS не отвечает, сайт доступен по HTTP)
 
+## GitHub-репозиторий и CI (2026-09-21, сделано)
+- Репозиторий: `https://github.com/altairstudio-ru/lab.altair-studio.ru` (публичный)
+- Первый коммит `0707128` (31 файл), ветка `main`, LF через `.gitattributes`
+- `SFTP.md` в `.gitignore` (содержит пароль); в CI креды — GitHub Secrets: `SFTP_HOST`, `SFTP_LOGIN`, `SFTP_PASS`, `SFTP_DIR`
+- `scripts/deploy.mjs`: креды теперь env-приоритетнее (`SFTP_HOST/SFTP_LOGIN/SFTP_PASS/SFTP_DIR`), иначе из `SFTP.md` (`LAB_SFTP_PASS` — обратная совместимость)
+- `.github/workflows/deploy.yml`: push в `main` → npm ci → build → inject:og → деплой по SFTP (concurrency + workflow_dispatch)
+- Первый запуск — успех за 1м21с; прод проверен после CI-деплоя (200, og:image OK)
+- Локальный `npm run release` остаётся запасным путём деплоя
+
 ## OG-картинка (2026-09-21, сделано)
 - `public/og-banner.png` — 1200×630, диз. стиль Modern Tech (Slate): blueprint-сетка, свечения Digital Blue/Cyan, монограмма «A», заголовок «Лаборатория AltaiR», линия «инженерный журнал», статы PageSpeed 100/100 · CWV ✓ · TTFB ≈0.4s
 - Источник для перегенерации: `tools/og/og-preview.html` (рендер → скриншот; контент строго в 630px, html/body overflow hidden)
