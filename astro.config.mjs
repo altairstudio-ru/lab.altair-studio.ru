@@ -25,6 +25,8 @@ export default defineConfig({
       components: {
         Header: './src/components/Header.astro',
         Hero: './src/components/Hero.astro',
+        TwoColumnContent: './src/components/TwoColumnContent.astro',
+        Footer: './src/components/Footer.astro',
       },
       customCss: ['./src/styles/theme.css'],
       sidebar: [

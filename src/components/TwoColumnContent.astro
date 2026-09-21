@@ -1,0 +1,14 @@
+<!-- Двухколоночная раскладка без правого TOC-сайдбара (канон: контент по центру).
+     Оглавление «На этой странице» перенесено в Footer (низ статьи). -->
+<div class="lg:sl-flex">
+	<div class="main-pane"><slot /></div>
+</div>
+
+<style>
+	@layer starlight.core {
+		.main-pane {
+			isolation: isolate;
+			width: 100%;
+		}
+	}
+</style>

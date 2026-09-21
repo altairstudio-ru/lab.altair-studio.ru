@@ -1,0 +1,156 @@
+---
+// Footer с перенесённым оглавлением «На этой странице».
+// Правый TOC-сайдбар убран (см. TwoColumnContent.astro), поэтому
+// оглавление рендерится в конце статьи — компактным блоком.
+import EditLink from 'virtual:starlight/components/EditLink';
+import LastUpdated from 'virtual:starlight/components/LastUpdated';
+import Pagination from 'virtual:starlight/components/Pagination';
+import config from 'virtual:starlight/user-config';
+import { Icon } from '@astrojs/starlight/components';
+
+const { toc } = Astro.locals.starlightRoute;
+---
+
+<footer class="sl-flex">
+	{
+		toc && (
+			<nav class="bottom-toc" aria-labelledby="starlight__on-this-page">
+				<details open>
+					<summary id="starlight__on-this-page">{Astro.locals.t('tableOfContents.onThisPage')}</summary>
+					<ul>
+						{
+							toc.items.map((heading) => (
+								<li>
+									<a href={'#' + heading.slug}>
+										<span>{heading.text}</span>
+									</a>
+									{
+										heading.children.length > 0 && (
+											<ul>
+												{
+													heading.children.map((child) => (
+														<li>
+															<a href={'#' + child.slug}>
+																<span>{child.text}</span>
+															</a>
+														</li>
+													))
+												}
+											</ul>
+										)
+									}
+								</li>
+							))
+						}
+					</ul>
+				</details>
+			</nav>
+		)
+	}
+	<div class="meta sl-flex">
+		<EditLink />
+		<LastUpdated />
+	</div>
+	<Pagination />
+
+	{
+		config.credits && (
+			<a class="kudos sl-flex" href="https://starlight.astro.build">
+				<Icon name={'starlight'} /> {Astro.locals.t('builtWithStarlight.label')}
+			</a>
+		)
+	}
+</footer>
+
+<style>
+	@layer starlight.core {
+		footer {
+			flex-direction: column;
+			gap: 1.5rem;
+		}
+		.meta {
+			gap: 0.75rem 3rem;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			margin-top: 3rem;
+			font-size: var(--sl-text-sm);
+			color: var(--sl-color-gray-3);
+		}
+		.meta > :global(p:only-child) {
+			margin-inline-start: auto;
+		}
+
+		.kudos {
+			align-items: center;
+			gap: 0.5em;
+			margin: 1.5rem auto;
+			font-size: var(--sl-text-xs);
+			text-decoration: none;
+			color: var(--sl-color-gray-3);
+		}
+		.kudos:hover {
+			color: var(--sl-color-white);
+		}
+	}
+
+	@layer starlight.components {
+		.kudos :global(svg) {
+			color: var(--sl-color-orange);
+		}
+	}
+
+	/* --- «На этой странице» внизу статьи (перенесён из правого сайдбара) --- */
+	@layer starlight.core {
+		.bottom-toc {
+			margin-top: 2.5rem;
+			padding: 1.1rem 1.5rem 1.25rem;
+			border: 1px solid var(--sl-color-bg-hairline);
+			border-radius: 10px;
+			background: rgba(30, 41, 59, 0.42);
+		}
+		.bottom-toc summary {
+			cursor: pointer;
+			list-style: none;
+			font-size: var(--sl-text-h5);
+			font-weight: 600;
+			color: var(--sl-color-white);
+			user-select: none;
+		}
+		.bottom-toc summary::-webkit-details-marker {
+			display: none;
+		}
+		.bottom-toc summary::before {
+			content: '▸';
+			display: inline-block;
+			margin-inline-end: 0.5rem;
+			color: var(--sl-color-text-accent);
+			transition: transform 0.2s ease;
+		}
+		.bottom-toc details[open] summary::before {
+			transform: rotate(90deg);
+		}
+		.bottom-toc ul {
+			list-style: none;
+			padding: 0;
+			margin: 0.75rem 0 0;
+			display: grid;
+			gap: 0.35rem;
+		}
+		.bottom-toc ul ul {
+			margin-top: 0.35rem;
+			padding-inline-start: 1.15rem;
+		}
+		.bottom-toc a {
+			display: block;
+			font-size: var(--sl-text-sm);
+			text-decoration: none;
+			color: var(--sl-color-gray-3);
+			line-height: 1.35;
+			border-radius: 0.25rem;
+			padding-block: 0.15rem;
+		}
+		.bottom-toc a:hover {
+			color: var(--sl-color-text-accent);
+		}
+	}
+</style>
