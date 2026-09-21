@@ -84,8 +84,8 @@ body::before {
 
 /* --- Контентная колонка: фон-панель Modern Tech (канон основного сайта) ---
    Контент лежит на подложке surface (#1E293B → #162032), не на прозрачном:
-   кольцо-рамка #334155, радиус 6px (rounded-md канона); внутри — едва
-   заметная blueprint-сетка и Digital Blue glow, как в hero Modern Tech. */
+   снизу фон растворяется к телу #0F172A; внутри — едва заметная
+   blueprint-сетка и Digital Blue glow, как в hero Modern Tech. */
 main[data-pagefind-body] {
   position: relative;
   background:
@@ -97,11 +97,9 @@ main[data-pagefind-body] {
 main[data-pagefind-body]::before {
   content: '';
   position: absolute;
-  inset: 0.9rem 0.9rem 0 0.9rem;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
-  border: 1px solid #334155;
-  border-radius: 6px;
   background-image:
     linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
